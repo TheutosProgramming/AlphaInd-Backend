@@ -3,6 +3,7 @@ using Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Rewrite;
 using Business.Services;
+using Presentation.Extensions.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,8 @@ app.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "web API"));
 
 app.UseRewriter(new RewriteOptions().AddRedirect("^$", "swagger"));
 app.UseHttpsRedirection();
+
+app.UseMiddleware<DefaultApiKeyMiddleware>();
 
 app.UseAuthorization();
 
